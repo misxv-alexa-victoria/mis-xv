@@ -1,49 +1,662 @@
-<!-- Sección de Confirmación de Asistencia (RSVP) -->
-<section style="max-width: 500px; margin: 40px auto; padding: 25px; background-color: #f9f9f9; border-radius: 12px; font-family: 'Segoe UI', sans-serif; box-shadow: 0 4px 10px rgba(0,0,0,0.05); text-align: center;">
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <h2 style="color: #4A4A4A; margin-bottom: 10px; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 1px;">
-    Confirmación de Asistencia
-  </h2>
-  <p style="color: #666; font-size: 0.95rem; margin-bottom: 20px;">
-    Por favor, confirma tu asistencia para acompañarnos en este día tan especial.
-  </p>
+    <title>Mis XV Años | Alexa Victoria</title>
 
-  <!-- Formulario conectado a tu cuenta de Formspree -->
-  <form action="https://formspree.io/f/mljrlzjb" method="POST" style="display: flex; flex-direction: column; gap: 15px; text-align: left;">
-    
-    <!-- Nombre Completo -->
-    <div>
-      <label style="display: block; font-weight: 600; margin-bottom: 5px; color: #333;">Nombre completo:</label>
-      <input type="text" name="nombre_invitado" required placeholder="Ej. María López" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
-    </div>
+    <style>
+        :root {
+            --vino: #B71C1C;
+            --vino-oscuro: #7F1414;
+            --rosa: #f8f1f4;
+            --crema: #fffaf7;
+            --texto: #4d3b3b;
+            --dorado: #b89b5e;
+        }
 
-    <!-- ¿Asistirá? -->
-    <div>
-      <label style="display: block; font-weight: 600; margin-bottom: 5px; color: #333;">¿Asistirás al evento?</label>
-      <select name="asistencia" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box; background-color: #fff;">
-        <option value="" disabled selected>Selecciona una opción</option>
-        <option value="Sí asistiré">¡Sí, ahí estaré!</option>
-        <option value="No podré asistir">Lo siento, no podré asistir</option>
-      </select>
-    </div>
+        * {
+            box-sizing: border-box;
+        }
 
-    <!-- Número de Pases / Acompañantes -->
-    <div>
-      <label style="display: block; font-weight: 600; margin-bottom: 5px; color: #333;">Número de personas que asisten:</label>
-      <input type="number" name="numero_personas" min="1" max="10" value="1" required style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;">
-    </div>
+        html {
+            scroll-behavior: smooth;
+        }
 
-    <!-- Mensaje (Opcional) -->
-    <div>
-      <label style="display: block; font-weight: 600; margin-bottom: 5px; color: #333;">Mensaje para la festejada (opcional):</label>
-      <textarea name="mensaje" rows="3" placeholder="Escribe un mensaje de felicitación..." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 6px; box-sizing: border-box;"></textarea>
-    </div>
+        body {
+            margin: 0;
+            font-family: Georgia, "Times New Roman", serif;
+            background: var(--crema);
+            color: var(--texto);
+            text-align: center;
+        }
 
-    <!-- Botón de Envío -->
-    <button type="submit" style="background-color: #315A68; color: white; border: none; padding: 12px; font-size: 1rem; border-radius: 6px; cursor: pointer; font-weight: bold; margin-top: 10px; transition: background 0.3s;">
-      Enviar Confirmación
-    </button>
+        section {
+            min-height: 100vh;
+            padding: 60px 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
 
-  </form>
+        /* =========================
+           PORTADA
+        ========================= */
 
-</section>
+        .portada {
+            background:
+                linear-gradient(
+                    rgba(255, 250, 247, 0.86),
+                    rgba(255, 250, 247, 0.92)
+                ),
+                radial-gradient(
+                    circle at top left,
+                    #ead1d4,
+                    transparent 35%
+                ),
+                radial-gradient(
+                    circle at bottom right,
+                    #efd9dc,
+                    transparent 35%
+                );
+        }
+
+        .ornamento {
+            color: var(--vino);
+            font-size: 30px;
+            margin-bottom: 15px;
+            letter-spacing: 8px;
+        }
+
+        .subtitulo {
+            color: var(--vino);
+            font-size: 17px;
+            letter-spacing: 5px;
+            margin: 5px 0 20px;
+        }
+
+        .frase {
+            max-width: 650px;
+            font-size: 22px;
+            line-height: 1.6;
+            font-style: italic;
+            margin: 0 auto 35px;
+        }
+
+        h1 {
+            color: var(--vino);
+            font-size: clamp(50px, 12vw, 90px);
+            font-weight: normal;
+            margin: 10px 0;
+            letter-spacing: 3px;
+        }
+
+        .apellido {
+            font-size: 19px;
+            letter-spacing: 6px;
+            margin-bottom: 25px;
+        }
+
+        .fecha {
+            color: var(--vino);
+            font-size: 22px;
+            letter-spacing: 3px;
+            margin: 10px 0;
+        }
+
+        .hora {
+            font-size: 18px;
+            margin-top: 8px;
+        }
+
+        .boton {
+            display: inline-block;
+            margin-top: 35px;
+            padding: 14px 32px;
+            border: 1px solid var(--vino);
+            border-radius: 30px;
+            text-decoration: none;
+            color: white;
+            background: var(--vino);
+            transition: 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .boton:hover {
+            background: var(--vino-oscuro);
+            transform: translateY(-2px);
+        }
+
+        /* =========================
+           SECCIONES
+        ========================= */
+
+        .contenido {
+            background: var(--rosa);
+        }
+
+        .titulo-seccion {
+            color: var(--vino);
+            font-size: 32px;
+            font-weight: normal;
+            margin-bottom: 25px;
+        }
+
+        .texto {
+            max-width: 650px;
+            font-size: 19px;
+            line-height: 1.8;
+        }
+
+        .decoracion {
+            color: var(--dorado);
+            font-size: 25px;
+            margin: 15px 0;
+        }
+
+        /* =========================
+           PADRES Y PADRINOS
+        ========================= */
+
+        .padres-padrinos {
+            background: var(--crema);
+        }
+
+        .bloque-familia {
+            margin-bottom: 30px;
+        }
+
+        .bloque-familia h3 {
+            color: var(--vino);
+            font-size: 22px;
+            font-weight: normal;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+            text-transform: uppercase;
+        }
+
+        .bloque-familia p {
+            font-size: 19px;
+            margin: 6px 0;
+        }
+
+        /* =========================
+           INFORMACIÓN
+        ========================= */
+
+        .tarjeta {
+            width: min(90%, 500px);
+            padding: 35px 25px;
+            margin-top: 20px;
+            background: rgba(255,255,255,0.7);
+            border: 1px solid #e4cdd0;
+            border-radius: 20px;
+            box-shadow: 0 8px 25px rgba(91, 70, 80, 0.08);
+        }
+
+        .dato {
+            margin: 20px 0;
+        }
+
+        .dato strong {
+            display: block;
+            color: var(--vino);
+            font-size: 18px;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+        }
+
+        .dato span {
+            font-size: 20px;
+        }
+
+        /* =========================
+           VESTIMENTA
+        ========================= */
+
+        .vestimenta {
+            background: var(--crema);
+        }
+
+        .vestimenta-icono {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+
+        /* =========================
+           SOLO ADULTOS
+        ========================= */
+
+        .adultos {
+            background:
+                linear-gradient(
+                    rgba(183, 28, 28, 0.94),
+                    rgba(127, 20, 20, 0.96)
+                );
+            color: white;
+        }
+
+        .adultos .titulo-seccion {
+            color: white;
+        }
+
+        .adultos .decoracion {
+            color: #ead7a6;
+        }
+
+        .adultos .texto {
+            max-width: 600px;
+        }
+
+        /* =========================
+           CONFIRMACIÓN
+        ========================= */
+
+        .confirmacion {
+            background: var(--rosa);
+        }
+
+        .formulario {
+            width: min(90%, 500px);
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            text-align: left;
+        }
+
+        .campo {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .campo label {
+            font-size: 16px;
+            color: var(--vino);
+            font-weight: bold;
+        }
+
+        .formulario input, 
+        .formulario select, 
+        .formulario textarea {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #d8bfc3;
+            border-radius: 12px;
+            font-family: Georgia, serif;
+            font-size: 16px;
+            background: white;
+            color: var(--texto);
+            outline: none;
+            box-sizing: border-box;
+        }
+
+        .formulario input:focus, 
+        .formulario select:focus, 
+        .formulario textarea:focus {
+            border-color: var(--vino);
+        }
+
+        .formulario button {
+            margin-top: 10px;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 30px;
+            background: var(--vino);
+            color: white;
+            font-family: Georgia, serif;
+            font-size: 16px;
+            cursor: pointer;
+            transition: 0.3s ease;
+            letter-spacing: 1px;
+        }
+
+        .formulario button:hover {
+            background: var(--vino-oscuro);
+        }
+
+        /* =========================
+           CIERRE
+        ========================= */
+
+        .cierre {
+            min-height: 70vh;
+            background: var(--crema);
+        }
+
+        .cierre h2 {
+            color: var(--vino);
+            font-size: 35px;
+            font-weight: normal;
+        }
+
+        .corazon {
+            color: var(--vino);
+            font-size: 28px;
+        }
+
+        footer {
+            padding: 20px;
+            background: var(--vino);
+            color: white;
+            font-size: 13px;
+        }
+
+        @media (max-width: 600px) {
+
+            section {
+                padding: 50px 20px;
+            }
+
+            .frase {
+                font-size: 19px;
+            }
+
+            .apellido {
+                font-size: 15px;
+                letter-spacing: 4px;
+            }
+
+            .texto {
+                font-size: 17px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         PORTADA
+    ========================== -->
+
+    <section class="portada">
+
+        <div class="ornamento">
+            ❦
+        </div>
+
+        <p class="subtitulo">
+            MIS XV AÑOS
+        </p>
+
+        <p class="frase">
+            “Hay momentos que se vuelven recuerdos para toda la vida…
+            y este será uno de ellos.”
+        </p>
+
+        <h1>
+            Alexa
+        </h1>
+
+        <p class="apellido">
+            VICTORIA REYNA ESTEVEZ
+        </p>
+
+        <p class="fecha">
+            26 • SEPTIEMBRE • 2026
+        </p>
+
+        <p class="hora">
+            8:00 p. m.
+        </p>
+
+        <a class="boton" href="#bienvenida">
+            MI INVITACIÓN
+        </a>
+
+    </section>
+
+
+    <!-- =========================
+         BIENVENIDA
+    ========================== -->
+
+    <section id="bienvenida" class="contenido">
+
+        <div class="ornamento">
+            ❦
+        </div>
+
+        <h2 class="titulo-seccion">
+            Una noche para recordar
+        </h2>
+
+        <div class="decoracion">
+            ✦
+        </div>
+
+        <p class="texto">
+            Hoy comienza una nueva etapa llena de sueños,
+            ilusiones y nuevos caminos.
+        </p>
+
+        <p class="texto">
+            Quiero compartir esta noche tan especial
+            con las personas que forman parte de mi vida
+            y hacer de este momento un recuerdo inolvidable.
+        </p>
+
+        <p class="texto">
+            Será un honor contar con tu presencia
+            en la celebración de mis XV años.
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         PADRES Y PADRINOS
+    ========================== -->
+
+    <section class="padres-padrinos">
+
+        <div class="ornamento">
+            ❦
+        </div>
+
+        <div class="bloque-familia">
+            <h3>Con la bendición de mis padres</h3>
+            <p>Lorena Estévez Huidobro</p>
+            <p>Jonathan A. García</p>
+            <p>Jorge Reyna Estrella</p>
+        </div>
+
+        <div class="decoracion">
+            ✦
+        </div>
+
+        <div class="bloque-familia">
+            <h3>Mis Padrinos</h3>
+            <p>Ricardo López</p>
+            <p>Carmen Sánchez</p>
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         INFORMACIÓN DEL EVENTO
+    ========================== -->
+
+    <section class="contenido">
+
+        <div class="ornamento">
+            ❦
+        </div>
+
+        <h2 class="titulo-seccion">
+            La celebración
+        </h2>
+
+        <div class="tarjeta">
+
+            <div class="dato">
+                <strong>FECHA</strong>
+                <span>26 de septiembre de 2026</span>
+            </div>
+
+            <div class="dato">
+                <strong>HORA</strong>
+                <span>8:00 p. m.</span>
+            </div>
+
+            <div class="dato">
+                <strong>LUGAR</strong>
+                <span>Próximamente</span>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         VESTIMENTA
+    ========================== -->
+
+    <section class="vestimenta">
+
+        <div class="vestimenta-icono">
+            ♡
+        </div>
+
+        <h2 class="titulo-seccion">
+            Código de vestimenta
+        </h2>
+
+        <p class="texto">
+            <strong>Formal / Elegante</strong>
+        </p>
+
+        <p class="texto">
+            Celebremos juntos esta noche tan especial
+            con un toque de elegancia.
+        </p>
+
+    </section>
+
+
+    <!-- =========================
+         SOLO ADULTOS
+    ========================== -->
+
+    <section class="adultos">
+
+        <div class="decoracion">
+            ✦
+        </div>
+
+        <h2 class="titulo-seccion">
+            Una noche solo para adultos
+        </h2>
+
+        <p class="texto">
+            Para disfrutar plenamente de esta celebración,
+            el evento será exclusivamente para adultos.
+        </p>
+
+        <div class="decoracion">
+            ✦
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CONFIRMACIÓN
+    ========================== -->
+
+    <section class="confirmacion">
+
+        <div class="ornamento">
+            ❦
+        </div>
+
+        <h2 class="titulo-seccion">
+            Confirma tu asistencia
+        </h2>
+
+        <p class="texto">
+            Será un placer contar contigo.
+            Por favor, llena los datos requeridos para registrar tu lugar.
+        </p>
+
+        <!-- FORMULARIO CONECTADO A FORMSPREE -->
+        <form class="formulario" action="https://formspree.io/f/mljrlzjb" method="POST">
+
+            <div class="campo">
+                <label>Nombre completo:</label>
+                <input type="text" name="nombre_invitado" placeholder="Escribe tu nombre completo" required>
+            </div>
+
+            <div class="campo">
+                <label>¿Asistirás al evento?</label>
+                <select name="asistencia" required>
+                    <option value="" disabled selected>Selecciona una opción</option>
+                    <option value="Sí asistiré">¡Sí, ahí estaré!</option>
+                    <option value="No podré asistir">Lo siento, no podré asistir</option>
+                </select>
+            </div>
+
+            <div class="campo">
+                <label>Número de personas:</label>
+                <input type="number" name="numero_personas" min="1" max="10" value="1" required>
+            </div>
+
+            <div class="campo">
+                <label>Mensaje opcional:</label>
+                <textarea name="mensaje" rows="3" placeholder="Escribe un mensaje de felicitación..."></textarea>
+            </div>
+
+            <button type="submit">
+                CONFIRMAR ASISTENCIA
+            </button>
+
+        </form>
+
+    </section>
+
+
+    <!-- =========================
+         CIERRE
+    ========================== -->
+
+    <section class="cierre">
+
+        <div class="corazon">
+            ♡
+        </div>
+
+        <h2>
+            ¡Te esperamos!
+        </h2>
+
+        <p class="texto">
+            Gracias por formar parte de este momento
+            tan especial en la vida de Alexa Victoria.
+        </p>
+
+        <div class="ornamento">
+            ❦
+        </div>
+
+        <p>
+            Con cariño,<br>
+            <strong>Familia Reyna Estevez</strong>
+        </p>
+
+    </section>
+
+
+    <footer>
+        Alexa Victoria • Mis XV Años • 2026
+    </footer>
+
+</body>
+</html>
